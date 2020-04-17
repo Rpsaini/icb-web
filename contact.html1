@@ -1,0 +1,311 @@
+<?php 
+if(isset($_POST['submit'])=="Submit"){
+	
+	$firstname = $_POST['name'];
+	$city = $_POST['city'];	
+	$Email=$_POST['email'];
+	$PhoneNo=$_POST['phone'];
+	$message= htmlentities($_POST['message']);
+	$submit=$_POST['submit'];
+	
+
+	 $Curl_Session = curl_init('http://www.maxxmann.com/landing/aryavrata/curlpost.php');
+	 curl_setopt ($Curl_Session, CURLOPT_POST, 1);
+	 curl_setopt ($Curl_Session, CURLOPT_POSTFIELDS, "name=$firstname&email=$Email&phone=$PhoneNo&city=$city&massage=$message&submit=submit");
+	 curl_setopt ($Curl_Session, CURLOPT_FOLLOWLOCATION, 1);
+	 curl_setopt($Curl_Session, CURLOPT_RETURNTRANSFER ,1);  // RETURN THE CONTENTS OF THE CALL
+	 $result = curl_exec($Curl_Session);
+     curl_close ($Curl_Session); 
+ 
+	$toEmail = "ravinder.infin@gmail.com";
+	$mailHeaders = "From:" . $_POST["name"] . "<". $_POST["email"] .">\r\n";
+	$mailHeaders .= "Bcc:maxxmann.digital@gmail.com";
+	$mailHeaders .= "Bcc:maxxmannit@gmail.com";
+	$userName = $_POST["name"];
+	$phone  = $_POST["phone"];
+	$userEmail  = $_POST["email"];
+	$city  = $_POST["city"];
+	$message= $_POST["message"];
+	$subject =$userName."-Enquiry from Aryavratatravels";
+	$email_body = "You have received a new message. ".
+	"Here are the details:\n Name: $userName \n ".
+	"Email:  $userEmail\n".
+	 "Phone: $phone\n".
+	 "City: $city\n".
+	 "Message: $message\n";
+
+	if(mail($toEmail,$subject,$email_body, $mailHeaders)) {
+	 
+	 echo '<div class="sentmail">email sent</div>';
+	} else {
+	  echo '<div class="sentmail">email not sent</div>';
+	}
+	  // header("Location:thank-you.html") ;
+	   	   
+ }
+
+?>
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>I CARE YOU | Contact</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<!-- css -->
+<link href="css/bootstrap.min.css" rel="stylesheet" />
+<link href="css/fancybox/jquery.fancybox.css" rel="stylesheet"> 
+<link href="css/flexslider.css" rel="stylesheet" /> 
+<link href="css/style.css" rel="stylesheet" />
+ <link href="css/font-awesome.css" rel="stylesheet" />
+<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+<!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+</head>
+<body>
+<div id="wrapper" class="home-page">
+<div class="topbar">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12"> 	  
+        <p class="pull-left hidden-xs"><i class="fa fa-clock-o"></i><span>Mon - Sat 8.00 - 18.00.</span></p>
+        <p class="pull-right"><i class="fa fa-phone"></i>Tel No. - 9050400744, 8950222020</p>
+      </div>
+    </div>
+  </div>
+</div>
+	<!-- start header -->
+	<header>
+        <div class="navbar navbar-default navbar-static-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="index.html"><img src="img/logo.png" alt="logo"/></a>
+                </div>
+                <div class="navbar-collapse collapse ">
+                     <ul class="nav navbar-nav">
+                        <li class="active"><a href="index.html">Home</a></li> 
+						 <li class="dropdown">
+                        <a href="#" data-toggle="dropdown" class="dropdown-toggle">About Us <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="about.html">Company</a></li>
+                            <li><a href="#">Our Team</a></li>
+                            <!--li><a href="#">News</a></li> 
+                            <li><a href="#">Investors</a></li-->
+                        </ul>
+                    </li> 
+						<li><a href="services.html">Services</a></li>
+                       <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+	</header>
+	<!-- end header -->
+	
+	<!-- Page heading section -->
+    	<section id="inner-headline">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12">
+				<h2 class="pageTitle">Contact Us</h2>
+			</div>
+		</div>
+	</div>
+	</section><!-- Page heading section close-->
+		
+      <!-- content section close -->  
+     <section id="content">
+	
+	<div class="container">
+		<div class="row"> 
+							<div class="col-md-12">
+								<div class="about-logo text-center">
+								<h4>I Care You<br/>
+#325 F.F.,Green City Zirakpur, S.A.S. Nagar Mohali (Punjab)-140603</h4>
+								</div>  
+                                
+                                 <div class="col-xs-12 aplink p-0 text-center"><p><a href="https://play.google.com/store/apps/details?id=desk.icb.myapplication"><img src="img/appStore.png" alt="app image" /></a> <a href="https://play.google.com/store/apps/details?id=desk.icb.myapplication"><img src="img/googlePlay.png" alt="app image" /></a></p> </div> 
+                                
+							</div>
+						</div>
+	<div class="row">
+								<div class="col-md-12">
+																	  	
+		   <!-- Form itself -->
+           
+          <form name="sentMessage" id="contactForm" class="enquiry-form register_form" action="http://maxxmann.com/landingpage/ContactForm/form.php"  method="post">
+	       <h3 class="text-center">Contact me</h3>
+		 <div class="control-group">
+                    <div class="controls">
+			<input type="text" class="form-control" 
+			   	   placeholder="Full Name" id="name" required
+			           data-validation-required-message="Please enter your name" />
+			  <p class="help-block"></p>
+		   </div>
+	         </div> 	
+                <div class="control-group">
+                  <div class="controls">
+			<input type="email" class="form-control" placeholder="Email" 
+			   	            id="email" required
+			   		   data-validation-required-message="Please enter your email" />
+		</div>
+	    </div> 	
+			  
+               <div class="control-group">
+                 <div class="controls">
+				 <textarea rows="10" cols="100" class="form-control" 
+                       placeholder="Message" id="message" required
+		       data-validation-required-message="Please enter your message" minlength="5" 
+                       data-validation-minlength-message="Min 5 characters" 
+                        maxlength="999" style="resize:none"></textarea>
+		</div>
+               </div> 		 
+	     <div id="success"> </div> <!-- For success/fail messages -->
+	    <button type="submit" class="btn btn-primary btn-enquiry center-block">Send</button><br />
+          </form>
+								</div>
+								
+							</div>
+	</div>
+ 
+	</section><!-- content section close -->
+  
+					
+<!-- footer start -->
+<footer>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12 col-sm-12 text-center">
+				<div class="widget">
+                <div class="block-heading-two">
+									<h3><span>Our Contact</span></h3>
+								</div>
+					
+					<address>
+					<strong>I Care You</strong><br>
+					 #325 F.F.,Green City Zirakpur, S.A.S. Nagar Mohali (Punjab)-140603</address>
+					<p>
+						<i class="icon-phone"></i> 9050400744, 8950222020 <br>
+						<i class="icon-envelope-alt"></i> servicekspltd@gmail.com
+					</p>
+				</div>
+			</div>
+			
+			
+			
+		</div>
+	</div>
+	<div id="sub-footer">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8">
+					<div class="copyright">
+						<p>
+							<span>&copy; Copyright 2018 | </span><a href="index.html">I Care You</a>
+						</p>
+					</div>
+				</div>
+				<div class="col-lg-4">
+					<ul class="botmlink">
+						<li><a href="terms.html">Terms and conditions</a></li>
+						<li><a href="privacy.html">Privacy policy</a></li>
+						<li><a href="contact.html">Contact us</a></li>
+						
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	</footer><!-- footer Close -->
+</div>
+<a href="#" class="scrollup"><i class="fa fa-angle-up active"></i></a>
+<!-- javascript
+    ================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="js/jquery.js"></script>
+<script src="js/jquery.easing.1.3.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/jquery.fancybox.pack.js"></script>
+<script src="js/jquery.fancybox-media.js"></script>  
+<script src="js/jquery.flexslider.js"></script>
+<script src="js/animate.js"></script>
+<!-- Vendor Scripts -->
+<script src="js/modernizr.custom.js"></script>
+<script src="js/jquery.isotope.min.js"></script>
+<script src="js/jquery.magnific-popup.min.js"></script>
+<script src="js/animate.js"></script>
+<script src="js/custom.js"></script> 
+<script type="text/javascript">
+
+		$(document).ready(function(){
+		
+			$(".btn-enquiry").click(function(){				
+				var form = $(".register_form");
+				form.validate({ 
+					errorElement: 'span',
+					errorClass: 'help-block',
+					highlight: function(element, errorClass, validClass) {
+						$(element).closest('.form-group').addClass("has-error");
+					},
+					unhighlight: function(element, errorClass, validClass) {
+						$(element).closest('.form-group').removeClass("has-error");
+					},
+					rules: {
+						name: {
+							required: true,													 
+						},
+						email: {
+							required: true,
+							 
+						},												
+						phone:{
+							required: true,
+						},						
+						city: {
+							required: true,
+							 
+						},
+						message: {
+							required: true,
+							 
+						},
+					},
+					messages: {
+						name: {
+							required: "Please enter your name",
+						},
+						email : {
+							required: "Please enter your email",
+						},
+						phone : {
+							required: "Please enter your phone number",
+							 
+						},						
+						city: {
+							required: "Please enter your city",
+						},
+						
+						message: {
+							required: "Please enter your message",
+						},						
+					}
+				});
+				
+				if (form.valid() === true){				 		 
+				}
+			});			
+		});
+	</script>
+
+
+</body>
+</html>
